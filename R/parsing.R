@@ -2,7 +2,11 @@
 require(data.table)
 
 posts_to_dt <- function(post_json_list) {
-  rbindlist(lapply(post_json_list, get_text))
+  post_data <- rbindlist(lapply(post_json_list, get_text))
+  
+  post_data[,score:=score_text(message)]
+  post_data[,created_time:=ymd_hms(created_time)]
+  post_data
 }
 
 # number of comments is 0 for comments shhh

@@ -2,10 +2,10 @@
 require(data.table)
 require(RJSONIO)
 
-get_json <- function(token, pages_back) {
+get_json <- function(token, pages_back, group_id = '370400073020145') {
   
   # this is the cohort page vvv
-  original_url <- paste0('https://graph.facebook.com/370400073020145/feed?access_token=', token)
+  original_url <- paste0('https://graph.facebook.com/', group_id, '/feed?access_token=', token)
   
   page <- get_page(original_url)
   if(!is.null(page$error$message) && page$error$message=='Invalid OAuth access token.'){

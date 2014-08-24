@@ -1,3 +1,5 @@
+# This is icky.  I'm gonna make some of it into functions, inputs from shiny app :)
+
 
 # packages ####
 library(RCurl)
@@ -23,11 +25,8 @@ if(!file.exists('../cacert.pem')) {
 #https://developers.facebook.com/tools/explorer/?method=GET&path=me%3Ffields%3Did%2Cname&version=v2.0
 token <- 'CAACEdEose0cBAMeZCLChAGWZAVIpVtgz5cC87b2dJIQKnxQmRJCIqr9ouAaF0fpZBZC8CWmcWeBATZBwWXWWdWvPXxlKS5WdDlcE6TNMBi81QOEZBJiRZBCbBXD7p8Noy3iIlJsnIKbu7ZB2AxLMOJxKWxeprKPecuw8QaV6kbZChwWCGQYzuX8k04NNQ9FWZCT4YZA2W02ANLe0W2aYoXfqZABo'
 
-post_list <- get_json(token, 2)
+post_list <- get_json(token = token, pages_back = 2)
 post_data <- posts_to_dt(post_list)
-
-post_data[,score:=score_text(message)]
-post_data[,created_time:=ymd_hms(created_time)]
 
 likes <- likes_to_dt(post_list)
 

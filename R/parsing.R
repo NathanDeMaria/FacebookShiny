@@ -4,7 +4,7 @@ require(dplyr)
 # number of comments is 0 for comments shhh
 parse_comment <- function(comment) {
   data.frame(
-    poster=as.character(comment$from$name),
+    poster=as.character(comment$from[['name']]),
     message=as.character(comment$message),
     created_time=as.character(comment$created_time),
     likes=comment$like_count,
@@ -21,7 +21,7 @@ get_text <- function(post) {
   }
   
   p <- data.frame(
-    poster=as.character(post$from$name),
+    poster=as.character(post$from[['name']]),
     message=as.character(post$message),
     created_time=as.character(post$created_time),
     likes=length(post$likes$data),

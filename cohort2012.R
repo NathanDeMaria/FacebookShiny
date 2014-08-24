@@ -13,17 +13,23 @@ library(ggvis)
 library(dplyr)
 library(data.table)
 
+setwd('R/') # doing this temporarily I swear
 source('parsing.R')
 source('data_gathering.R')
 source('scoring.R')
 source('visualize.R')
 source('likes.R')
 
+# needed for SSL stuff using curl on Windows
+if(!file.exists('../cacert.pem')) {
+  download.file(url="http://curl.haxx.se/ca/cacert.pem", destfile="../cacert.pem")
+}
+
 # getting data ####
 #https://developers.facebook.com/tools/explorer/?method=GET&path=me%3Ffields%3Did%2Cname&version=v2.0
 token <- 'CAACEdEose0cBAMeZCLChAGWZAVIpVtgz5cC87b2dJIQKnxQmRJCIqr9ouAaF0fpZBZC8CWmcWeBATZBwWXWWdWvPXxlKS5WdDlcE6TNMBi81QOEZBJiRZBCbBXD7p8Noy3iIlJsnIKbu7ZB2AxLMOJxKWxeprKPecuw8QaV6kbZChwWCGQYzuX8k04NNQ9FWZCT4YZA2W02ANLe0W2aYoXfqZABo'
 
-post_data <- get_all(token, 16)
+post_data <- get_all(token, 1)
 
 post_data[,score:=score_text(message)]
 

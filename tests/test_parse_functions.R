@@ -1,5 +1,5 @@
 
-source('../parsing.R')
+source('../R/parsing.R')
 
 # Parse Comment test ####
 context('Parse comment')
@@ -45,6 +45,34 @@ test_that('No comment no like post', {
       created_time='2014-08-14T06:57:01+0000',
       updated_time='2014-08-14T20:35:10+0000'
     )
+  
+  result <- get_text(post)
+  
+  expect_is(result, 'data.frame')
+  expect_equal(result$poster, 'Tracy Moody')
+  expect_equal(result$message, 'I just signed up for FITN 160')
+  expect_equal(result$created_time, '2014-08-14T06:57:01+0000')
+  expect_equal(result$likes, 0)
+  expect_equal(result$comments, 0)
+})
+
+test_that('Post from vector', {
+  
+  post <- list(
+    id='370400073020145_741790912547724',
+    
+    # sometimes, this comes in as a character vector instead of a list?
+    from=c(id='1386256159', name='Tracy Moody'),
+    to=list(data=list(name='Raikes Cohort 2012', id='370400073020145')),
+    message="I just signed up for FITN 160",
+    actions=list(list(name='Comment', link='https://www.facebook.com/370400073020145/posts/741790912547724'),
+                 list(name='Like', link='https://www.facebook.com/370400073020145/posts/741790912547724')),
+    privacy=list(value=''),
+    type='status',
+    application=list(name='Facebook for Android', namespace='fbandroid', id='350685531728'),
+    created_time='2014-08-14T06:57:01+0000',
+    updated_time='2014-08-14T20:35:10+0000'
+  )
   
   result <- get_text(post)
   

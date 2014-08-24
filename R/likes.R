@@ -28,10 +28,10 @@ get_post_likes <- function(post) {
   }
 
   data.frame(
-    poster = post$from$name,
+    poster = post$from[['name']],
     post_id = post$id,
     liker = sapply(post$likes$data, 
-                    function(like) {like$name}),
+                    function(like) {like[['name']]}),
     stringsAsFactors=F
   )
 }

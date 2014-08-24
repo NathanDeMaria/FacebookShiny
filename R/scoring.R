@@ -2,8 +2,8 @@ require(stringr)
 require(data.table)
 
 score_text <- function(text_data) {
-    
-  affin <- fread('/home/ubuntu/ConAgra/twitteR/AFINN-111.txt', colClasses=c('character', 'numeric'))
+
+  affin <- fread('../data/AFINN-111.txt', colClasses=c('character', 'numeric'))
   setnames(affin, c('word', 'score'))
   setkey(affin, word)
   

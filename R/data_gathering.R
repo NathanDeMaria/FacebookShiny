@@ -34,8 +34,8 @@ get_all <- function(token, pages_back) {
 
 
 get_page <- function(url) {
-  
-  resp <- getURL(url)
+
+  resp <- getURL(url, cainfo='../cacert.pem')
   
   resp <- clean_json(resp)
   

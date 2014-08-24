@@ -1,5 +1,5 @@
 
-source('../scoring.R')
+source('../R/scoring.R')
 
 context('Scoring')
 

@@ -1,5 +1,5 @@
 
-source('../data_gathering.R')
+source('../R/data_gathering.R')
 
 context('JSON Cleaning')
 

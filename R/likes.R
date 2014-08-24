@@ -1,24 +1,6 @@
 
-get_likes <- function(token, pages_back) {
-  
-  original_url <- paste0('https://graph.facebook.com/370400073020145/feed?access_token=', token)
-  
-  page <- get_page(original_url)
-  
-  likes <- rbind_all(lapply(page$data, get_post_likes))
-  
-  if(pages_back > 0) {
-    for(i in 1:pages_back) {
-      
-      page <- get_page(page$paging['next'])
-      
-      # definitely need to change the way I'm combining things
-      next_likes <- rbind_all(lapply(page$data, get_post_likes))
-      likes <- rbind(likes, next_likes)
-    }
-  }  
-  
-  likes
+likes_to_dt <- function(post_json_list) {
+  data.table(rbind_all(lapply(post_json_list, get_post_likes)))
 }
 
 get_post_likes <- function(post) {

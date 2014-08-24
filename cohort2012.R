@@ -1,9 +1,4 @@
 
-#TODO: right now, sourcing this reads everything from Facebook twice
-  # once for sentiment, and once for likes
-  # that is dumb.
-  # fix it.
-
 # packages ####
 library(RCurl)
 library(rjson)
@@ -29,11 +24,12 @@ if(!file.exists('../cacert.pem')) {
 #https://developers.facebook.com/tools/explorer/?method=GET&path=me%3Ffields%3Did%2Cname&version=v2.0
 token <- 'CAACEdEose0cBAMeZCLChAGWZAVIpVtgz5cC87b2dJIQKnxQmRJCIqr9ouAaF0fpZBZC8CWmcWeBATZBwWXWWdWvPXxlKS5WdDlcE6TNMBi81QOEZBJiRZBCbBXD7p8Noy3iIlJsnIKbu7ZB2AxLMOJxKWxeprKPecuw8QaV6kbZChwWCGQYzuX8k04NNQ9FWZCT4YZA2W02ANLe0W2aYoXfqZABo'
 
-post_data <- get_all(token, 1)
+post_list <- get_json(token, 2)
+post_data <- posts_to_dt(post_list)
 
 post_data[,score:=score_text(message)]
 
-likes <- get_likes(token, 16)
+likes <- likes_to_dt(post_list)
 
 like_counts <- likes %>% 
   regroup(list('poster', 'liker')) %>% 
@@ -52,6 +48,6 @@ combined <- combined %>%
 
 like_json <- d3_force_likes(data.table(combined))
 
-writeLines(like_json, con='/usr/share/nginx/html/facebook/likes.json')
+#writeLines(like_json, con='/usr/share/nginx/html/facebook/likes.json')
 
 

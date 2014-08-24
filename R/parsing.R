@@ -1,6 +1,10 @@
 
 require(dplyr)
 
+posts_to_dt <- function(post_json_list) {
+  data.table(rbind_all(lapply(post_json_list, get_text)))
+}
+
 # number of comments is 0 for comments shhh
 parse_comment <- function(comment) {
   data.frame(

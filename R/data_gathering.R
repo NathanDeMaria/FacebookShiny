@@ -2,36 +2,31 @@
 require(data.table)
 require(RJSONIO)
 
-get_all <- function(token, pages_back) {
+get_json <- function(token, pages_back) {
   
   # this is the cohort page vvv
   original_url <- paste0('https://graph.facebook.com/370400073020145/feed?access_token=', token)
   
-  posts <- get_page(original_url)
-  if(!is.null(posts$error$message) && posts$error$message=='Invalid OAuth access token.'){
+  page <- get_page(original_url)
+  if(!is.null(page$error$message) && page$error$message=='Invalid OAuth access token.'){
     stop('Invalid OAuth token')
   }
   
-  everything <- rbind_all(lapply(posts$data, get_text))
-  
+  posts <- page$data
+    
   # I'm so sorry, but I've gotta :(
   if(pages_back > 0) {
     for(i in 1:pages_back) {
       
-      posts <- get_page(posts$paging['next'])
+      page <- get_page(page$paging['next'])
       
       # definitely need to change the way I'm combining things
-      next_posts <- rbind_all(lapply(posts$data, get_text))
-      everything <- rbind(everything, next_posts)
+      posts <- c(page$data, posts)
     }
   }
   
-  everything <- data.table(everything)
-  everything[,created_time:=ymd_hms(created_time)]
-    
-  return(everything)
+  return(posts)
 }
-
 
 get_page <- function(url) {
 

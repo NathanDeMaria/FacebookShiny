@@ -8,7 +8,7 @@ plot_time <- function(post_data) {
 }
 
 plot_averages <- function(post_data) {
-  person_avg <- post_data %>% group_by(poster) %>% summarise(score=mean(score)) 
+  person_avg <- post_data[,list(score=mean(score)),by='poster'] 
   person_avg %>% ggvis(~poster, ~score) %>% layer_bars(stat='identity') %>% 
     add_axis("x", title='', properties = axis_props(
       labels = list(angle = 90, align = "left"))) %>% 
@@ -17,7 +17,7 @@ plot_averages <- function(post_data) {
 }
 
 plot_sums <- function(post_data) {
-  person_sum <- post_data %>% group_by(poster) %>% summarise(score=sum(score))
+  person_sum <- post_data[,list(score=sum(score)),by='poster']
   person_sum %>% ggvis(~poster, ~score) %>% layer_bars(stat='identity') %>% 
     add_axis("x", title='', properties = axis_props(
       labels = list(angle = 90, align = "left"))) %>% 

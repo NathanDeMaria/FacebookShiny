@@ -1,19 +1,18 @@
 
-require(dplyr)
+require(data.table)
 
 posts_to_dt <- function(post_json_list) {
-  data.table(rbind_all(lapply(post_json_list, get_text)))
+  rbindlist(lapply(post_json_list, get_text))
 }
 
 # number of comments is 0 for comments shhh
 parse_comment <- function(comment) {
-  data.frame(
+  data.table(
     poster=as.character(comment$from[['name']]),
     message=as.character(comment$message),
     created_time=as.character(comment$created_time),
     likes=comment$like_count,
-    comments=0,
-    stringsAsFactors = FALSE
+    comments=0
   )
 }
 
@@ -24,13 +23,12 @@ get_text <- function(post) {
     post$message[1] <- ''
   }
   
-  p <- data.frame(
+  p <- data.table(
     poster=as.character(post$from[['name']]),
     message=as.character(post$message),
     created_time=as.character(post$created_time),
     likes=length(post$likes$data),
-    comments=length(post$comments$data),
-    stringsAsFactors = FALSE
+    comments=length(post$comments$data)
   )
   
   if(is.null(post$comment)) {
@@ -38,9 +36,9 @@ get_text <- function(post) {
   }
   
   # comments is post$comment$data
-  comments <- rbind_all(lapply(post$comments$data, parse_comment))
+  comments <- rbindlist(lapply(post$comments$data, parse_comment))
   
-  return(rbind_list(p, comments))
+  return(rbindlist(list(p, comments)))
 }
 
 

@@ -5,10 +5,9 @@ library(rjson)
 library(lubridate)
 library(stringr)
 library(ggvis)
-library(dplyr)
 library(data.table)
 
-setwd('R/') # doing this temporarily I swear
+#setwd('R/') # doing this temporarily I swear
 source('parsing.R')
 source('data_gathering.R')
 source('scoring.R')
@@ -28,23 +27,18 @@ post_list <- get_json(token, 2)
 post_data <- posts_to_dt(post_list)
 
 post_data[,score:=score_text(message)]
+post_data[,created_time:=ymd_hms(created_time)]
 
 likes <- likes_to_dt(post_list)
 
-like_counts <- likes %>% 
-  regroup(list('poster', 'liker')) %>% 
-  summarise(count=length(poster)) %>% 
-  arrange(count)
+like_counts <- likes[,list(count=length(post_id)),by=list(poster, liker)][order(count)]
 
 # so there's only one link in a pair
-first <- like_counts %>% filter(liker < poster)
-second <- like_counts %>% filter(liker >= poster)
+first <- like_counts[liker < poster]
+second <- like_counts[liker >= poster]
 setnames(second, c('liker', 'poster', 'count'))
-combined <- rbind_list(first, second)
-combined <- combined %>% 
-  regroup(list('poster', 'liker')) %>% 
-  summarise(count=sum(count)) %>% 
-  arrange(count)
+combined <- rbindlist(list(first, second))
+combined <- combined[,list(count=sum(count)),by=list(poster, liker)][order(count)]
 
 like_json <- d3_force_likes(data.table(combined))
 

@@ -30,14 +30,10 @@ post_data <- posts_to_dt(post_list)
 
 likes <- likes_to_dt(post_list)
 
-like_counts <- likes[,list(count=length(post_id)),by=list(poster, liker)][order(count)]
+like_counts <- likes[,list(count=length(post_id)),by=list(poster, liker)][order(count, decreasing = T)]
 
 # so there's only one link in a pair
-first <- like_counts[liker < poster]
-second <- like_counts[liker >= poster]
-setnames(second, c('liker', 'poster', 'count'))
-combined <- rbindlist(list(first, second))
-combined <- combined[,list(count=sum(count)),by=list(poster, liker)][order(count)]
+combined_likes <- combine_likes(like_counts)
 
 like_json <- d3_force_likes(data.table(combined))
 

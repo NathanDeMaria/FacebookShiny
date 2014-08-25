@@ -50,3 +50,13 @@ d3_force_likes <- function(dt) {
   toJSON(data)
 }
 
+combine_likes <- function(like_counts) {
+  first <- like_counts[liker < poster]
+  second <- like_counts[liker >= poster]
+  setnames(second, c('liker', 'poster', 'count'))
+  combined <- rbindlist(list(first, second))
+  combined <- combined[,list(count=sum(count)),by=list(poster, liker)][order(count, decreasing = T)]
+  setnames(combined, c('person_a', 'person_b', 'combined_likes'))
+  combined
+}
+

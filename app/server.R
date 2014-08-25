@@ -15,6 +15,14 @@ shinyServer(function(input, output) {
       post_data %>% plot_averages() %>% bind_shiny('average_plot')
       post_data %>% plot_sums() %>% bind_shiny('sums_plot')
       post_data %>% plot_time() %>% bind_shiny('time_plot')
+      
+      likes <- likes_to_dt(post_list)
+      like_counts <- likes[,list(count=length(post_id)),by=list(poster, liker)][order(count, decreasing = T)]
+      combined_likes <- combine_likes(like_counts)
+      
+      output$like_counts <- renderDataTable(like_counts)
+      output$combined_likes <- renderDataTable(combined_likes)
+      print('done')
     })
   })
 

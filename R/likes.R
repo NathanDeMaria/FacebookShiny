@@ -51,12 +51,16 @@ d3_force_likes <- function(dt) {
 }
 
 combine_likes <- function(like_counts) {
-  first <- like_counts[liker < poster]
-  second <- like_counts[liker >= poster]
-  setnames(second, c('liker', 'poster', 'count'))
+  # this is gross, but it was a quick fix
+  in_first <- like_counts$liker < like_counts$poster
+  first <- data.table(person_a = like_counts$liker[in_first],
+                      person_b = like_counts$poster[in_first],
+                      count = like_counts$count[in_first])
+  second <- data.table(person_a = like_counts$poster[!in_first],
+                       person_b = like_counts$liker[!in_first],
+                       count = like_counts$count[!in_first])
   combined <- rbindlist(list(first, second))
-  combined <- combined[,list(count=sum(count)),by=list(poster, liker)][order(count, decreasing = T)]
-  setnames(combined, c('person_a', 'person_b', 'combined_likes'))
+  combined <- combined[,list(count=sum(count)),by=list(person_a, person_b)][order(count, decreasing = T)]
   combined
 }
 

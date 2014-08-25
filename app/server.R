@@ -18,7 +18,7 @@ shinyServer(function(input, output) {
       
       likes <- likes_to_dt(post_list)
       like_counts <- likes[,list(count=length(post_id)),by=list(poster, liker)][order(count, decreasing = T)]
-      combined_likes <- combine_likes(like_counts)
+      combined_likes <- combine_likes(copy(like_counts))
       
       output$like_counts <- renderDataTable(like_counts)
       output$combined_likes <- renderDataTable(combined_likes)

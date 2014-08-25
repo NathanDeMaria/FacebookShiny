@@ -6,6 +6,7 @@ library(lubridate)
 library(stringr)
 library(ggvis)
 library(data.table)
+library(httr)
 
 source('../R/parsing.R')
 source('../R/data_gathering.R')

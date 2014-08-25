@@ -1,6 +1,7 @@
 
 require(data.table)
 require(RJSONIO)
+require(httr)
 
 get_json <- function(token, pages_back, group_id = '370400073020145') {
   
@@ -40,8 +41,8 @@ clean_json <- function(str) {
 }
 
 get_page <- function(url) {
-
-  resp <- getURL(url, cainfo='../cacert.pem')
+  
+  resp <- GET(url)
   
   cleaned <- clean_json(resp)
   

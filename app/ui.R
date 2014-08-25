@@ -6,6 +6,7 @@ shinyUI(fluidPage(
   
   # including a 'dummy' output so it adds the ggvis style/scripts to head
   ggvisOutput('dummy'),
+  dataTableOutput('dummer'),
   bootstrap_tabs(list(
       Submit = HTML(paste0(tags$h4('Get an API key', tags$a('here', href='https://developers.facebook.com/tools/explorer/?method=GET&path=me%3Ffields%3Did%2Cname&version=v2.0')),
                      tags$p('Make sure you check user_groups'),
@@ -15,9 +16,12 @@ shinyUI(fluidPage(
              
              textInput('group', label = 'Facebook group id', value = '370400073020145'),
              numericInput(inputId = 'pages_back', label = 'Pages back', value = 4, min = 0, max = 100),
+             tags$br(),
              actionButton(inputId = 'submit', label = 'Update graphs'), collapse='\n')),
       Average = ggvisOutput('average_plot'),
       Sums = ggvisOutput('sums_plot'),
-      Time = ggvisOutput('time_plot')
+      Time = ggvisOutput('time_plot'),
+      Likes = dataTableOutput('like_counts'),
+      Pairs = dataTableOutput('combined_likes')
     ))
 ))

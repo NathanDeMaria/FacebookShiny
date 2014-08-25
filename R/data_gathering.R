@@ -28,15 +28,6 @@ get_json <- function(token, pages_back, group_id = '370400073020145') {
   return(posts)
 }
 
-get_page <- function(url) {
-
-  resp <- getURL(url, cainfo='../cacert.pem')
-  
-  resp <- clean_json(resp)
-  
-  return(fromJSON(resp))
-}
-
 clean_json <- function(str) {
   
   # cleans out when Ryan said: "{\"message\":\"C:Windows//Media//Onestop.mid\n\nThat is all.\"}"
@@ -45,6 +36,16 @@ clean_json <- function(str) {
   str <- gsub('\\\\O', '//O', str)
   
   # because of ¯\\_(ツ)_/¯
-  str <- gsub('¯\\\\_\\(.\\)_/¯', 'shrug', str)
+  gsub('¯\\\\_\\(.\\)_/¯', 'shrug', str)
 }
+
+get_page <- function(url) {
+
+  resp <- getURL(url, cainfo='../cacert.pem')
+  
+  cleaned <- clean_json(resp)
+  
+  return(fromJSON(cleaned))
+}
+
 

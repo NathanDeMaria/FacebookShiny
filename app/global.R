@@ -1,6 +1,5 @@
 
 # packages ####
-library(RCurl)
 library(rjson)
 library(lubridate)
 library(stringr)
@@ -14,10 +13,6 @@ source('../R/scoring.R')
 source('../R/visualize.R')
 source('../R/likes.R')
 
-# needed for SSL stuff using curl on Windows
-if(!file.exists('../cacert.pem')) {
-  download.file(url="http://curl.haxx.se/ca/cacert.pem", destfile="../cacert.pem")
-}
 
 # takes in a named list of things to put in tabs
 bootstrap_tabs <- function(tab_list) {

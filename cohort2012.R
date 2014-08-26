@@ -2,7 +2,6 @@
 
 
 # packages ####
-library(RCurl)
 library(rjson)
 library(lubridate)
 library(stringr)
@@ -16,10 +15,6 @@ source('scoring.R')
 source('visualize.R')
 source('likes.R')
 
-# needed for SSL stuff using curl on Windows
-if(!file.exists('../cacert.pem')) {
-  download.file(url="http://curl.haxx.se/ca/cacert.pem", destfile="../cacert.pem")
-}
 
 # getting data ####
 #https://developers.facebook.com/tools/explorer/?method=GET&path=me%3Ffields%3Did%2Cname&version=v2.0

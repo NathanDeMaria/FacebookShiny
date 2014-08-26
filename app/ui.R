@@ -22,6 +22,8 @@ shinyUI(fluidPage(
       Sums = ggvisOutput('sums_plot'),
       Time = ggvisOutput('time_plot'),
       Likes = dataTableOutput('like_counts'),
-      Pairs = dataTableOutput('combined_likes')
+      Pairs = dataTableOutput('combined_likes'),
+      Posts = dataTableOutput('all_posts'),
+      Network = HTML(paste0(tags$div(id='container'), htmlOutput('network')))
     ))
 ))

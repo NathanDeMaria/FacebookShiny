@@ -1,6 +1,9 @@
 library(shiny)
+library(shinyIncubator)
 
 shinyUI(fluidPage(
+  
+  progressInit(),
   
   titlePanel("Facebook Shiny App"),
   

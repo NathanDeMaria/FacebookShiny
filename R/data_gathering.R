@@ -3,7 +3,7 @@ require(data.table)
 require(RJSONIO)
 require(httr)
 
-get_json <- function(token, pages_back, group_id = '370400073020145') {
+get_json <- function(token, pages_back, group_id = '370400073020145', update = F) {
   
   # this is the cohort page vvv
   original_url <- paste0('https://graph.facebook.com/', group_id, '/feed?access_token=', token)
@@ -20,6 +20,10 @@ get_json <- function(token, pages_back, group_id = '370400073020145') {
     for(i in 1:pages_back) {
       
       page <- get_page(page$paging['next'])
+      
+      if(update) {
+        setProgress(value = i)
+      }
       
       # definitely need to change the way I'm combining things
       posts <- c(page$data, posts)

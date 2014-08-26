@@ -1,6 +1,6 @@
 
 # packages ####
-library(rjson)
+library(RJSONIO)
 library(lubridate)
 library(stringr)
 library(ggvis)

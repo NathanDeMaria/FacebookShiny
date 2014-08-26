@@ -1,3 +1,13 @@
+Packages used:
+- shiny
+- shinyIncubator (from rstudio's GitHub)
+- ggvis
+- RJSONIO
+- lubridate
+- stringr
+- data.table
+- httr
+
 For "sentiment" portion:
 
 Download AFFIN-111.txt from http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010

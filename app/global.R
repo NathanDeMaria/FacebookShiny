@@ -12,6 +12,7 @@ source('../R/data_gathering.R')
 source('../R/scoring.R')
 source('../R/visualize.R')
 source('../R/likes.R')
+source('../R/appSettings.R')
 
 
 # takes in a named list of things to put in tabs

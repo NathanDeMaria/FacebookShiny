@@ -14,13 +14,11 @@ source('data_gathering.R')
 source('scoring.R')
 source('visualize.R')
 source('likes.R')
+source('appSettings.R')
 
 
 # getting data ####
-#https://developers.facebook.com/tools/explorer/?method=GET&path=me%3Ffields%3Did%2Cname&version=v2.0
-token <- 'CAACEdEose0cBAMeZCLChAGWZAVIpVtgz5cC87b2dJIQKnxQmRJCIqr9ouAaF0fpZBZC8CWmcWeBATZBwWXWWdWvPXxlKS5WdDlcE6TNMBi81QOEZBJiRZBCbBXD7p8Noy3iIlJsnIKbu7ZB2AxLMOJxKWxeprKPecuw8QaV6kbZChwWCGQYzuX8k04NNQ9FWZCT4YZA2W02ANLe0W2aYoXfqZABo'
-
-post_list <- get_json(token = token, pages_back = 2)
+post_list <- get_json(token = app_settings['api_token','values',with=F][[1]], pages_back = 2, group_id = app_settings['cohort_page','values',with=F][[1]])
 post_data <- posts_to_dt(post_list)
 
 likes <- likes_to_dt(post_list)
@@ -30,7 +28,7 @@ like_counts <- likes[,list(count=length(post_id)),by=list(poster, liker)][order(
 # so there's only one link in a pair
 combined_likes <- combine_likes(like_counts)
 
-like_json <- d3_force_likes(data.table(combined))
+like_json <- d3_force_likes(combined_likes)
 
 #writeLines(like_json, con='/usr/share/nginx/html/facebook/likes.json')
 

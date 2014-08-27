@@ -21,18 +21,15 @@ get_post_likes <- function(post) {
 
 d3_force_likes <- function(dt) { 
   
-  dt[,poster:=as.character(poster)]
-  dt[,liker:=as.character(liker)]
-  
-  lookup <- data.table(name=unique(c(dt$poster, dt$liker)))
+  lookup <- data.table(name=unique(c(dt$person_a, dt$person_b)))
   lookup[,index:=0:(dim(lookup)[1] - 1)]
   
   setkey(lookup, name)
   
   # gives warnings because this isn't really how you use
     # data.table joins, but it works :)
-  invisible(suppressWarnings(dt[,source:=lookup[liker, 'index',with=F]]))
-  invisible(suppressWarnings(dt[,target:=lookup[poster, 'index',with=F]]))
+  invisible(suppressWarnings(dt[,source:=lookup[person_a, 'index',with=F]]))
+  invisible(suppressWarnings(dt[,target:=lookup[person_b, 'index',with=F]]))
   dt[,distance:=1/count]
   
   usr_names <- lookup[order(index)]$name

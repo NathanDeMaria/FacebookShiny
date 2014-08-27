@@ -3,7 +3,7 @@ require(data.table)
 require(RJSONIO)
 require(httr)
 
-get_json <- function(token, pages_back, group_id = '370400073020145', update = F) {
+get_json <- function(token, pages_back, group_id, update = F) {
   
   # this is the cohort page vvv
   original_url <- paste0('https://graph.facebook.com/', group_id, '/feed?access_token=', token)

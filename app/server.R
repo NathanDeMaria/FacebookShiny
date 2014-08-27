@@ -31,7 +31,7 @@ shinyServer(function(input, output, session) {
         output$like_counts <- renderDataTable(like_counts)
         output$combined_likes <- renderDataTable(combined_likes)
         
-        output$network <- renderText(create_d3(copy(like_counts)))
+        output$network <- renderText(create_d3(copy(combined_likes)))
         print('done')
       })
 

@@ -28,6 +28,7 @@ shinyUI(fluidPage(
       Likes = dataTableOutput('like_counts'),
       Pairs = dataTableOutput('combined_likes'),
       Posts = dataTableOutput('all_posts'),
-      Network = paste0(tags$div(id='container'), htmlOutput('network'))
+      D3Network = paste0(tags$div(id='container'), htmlOutput('network_d3')),
+      Network = plotOutput('network_plot', width = 1000, height = 1000)
     ))
 ))

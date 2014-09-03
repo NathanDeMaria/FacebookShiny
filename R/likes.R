@@ -61,3 +61,22 @@ combine_likes <- function(like_counts) {
   combined
 }
 
+get_adj_matrix <- function(likes) {
+  if(!is.data.table(likes)) {
+    stop('Parameter likes must be a data.table')
+  }
+  
+  names <- unique(c(likes$poster, likes$liker))
+  
+  matr <- matrix(apply(expand.grid(poster=names, liker=names), 1, function(pair) {
+    count <- likes[poster == pair['poster'] & liker == pair['liker'], list(count)][[1]]
+    if(length(count) == 0) {
+      return(0)
+    }
+    count
+  }), length(names))
+  rownames(matr) <- names
+  colnames(matr) <- names
+  matr
+}
+

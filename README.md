@@ -13,6 +13,7 @@
 - stringr
 - data.table
 - httr
+- igraph
 
 # data folder
 For "sentiment" portion:

@@ -1,6 +1,7 @@
 library(shiny)
 library(shinyIncubator)
 library(ggvis)
+library(igraph)
 
 shinyServer(function(input, output, session) {
   
@@ -32,7 +33,15 @@ shinyServer(function(input, output, session) {
         output$like_counts <- renderDataTable(like_counts)
         output$combined_likes <- renderDataTable(combined_likes)
         
-        output$network <- renderText(create_d3(copy(combined_likes)))
+        output$network_d3 <- renderText(create_d3(copy(combined_likes)))
+        
+        output$network_plot <- renderPlot({
+          adjacency_matrix <- get_adj_matrix(like_counts)
+          
+          g <- graph.adjacency(adjacency_matrix, weighted = T)
+          plot(g)
+        })
+        
         print('done')
       })
 

@@ -2,10 +2,11 @@ library(shiny)
 library(shinyIncubator)
 library(ggvis)
 
-# Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
   
   observe({
+    
+    # exit if not button click
     if(input$submit == 0) {
       return()
     }

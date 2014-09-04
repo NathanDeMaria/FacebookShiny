@@ -21,7 +21,10 @@ shinyServer(function(input, output, session) {
         post_data <- posts_to_dt(post_list)
         post_data %>% plot_averages() %>% bind_shiny('average_plot')
         post_data %>% plot_sums() %>% bind_shiny('sums_plot')
-        post_data %>% plot_time() %>% bind_shiny('time_plot')
+        post_data %>% plot_time() %>% 
+          layer_smooths(span = input_slider(.05, .3, value=.1, label='Smoothing span'), 
+                        stroke := 'blue') %>% 
+          bind_shiny('time_plot', 'time_ui')
         
         output$all_posts <- renderDataTable(post_data)
         

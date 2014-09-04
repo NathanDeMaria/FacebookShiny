@@ -6,12 +6,21 @@ context('Visualization')
 # mostly just a smoke test
 test_that('Visualizations make ggvis', {
   
-  post_data <- data.table(poster = c('Cassey Lottman', 'Cassey Lottman', 'Trevor Poppen'), 
-                          message = c('', 'I hate Rails', 'Its funny'),
-                          created_time = c(as.POSIXct('2014/04/24'),as.POSIXct('2014/04/24'),as.POSIXct('2014/04/24')),
-                          likes = c(1,2,3),
-                          comments = c(2,3,4),
-                          score=c(3,4,5))
+  post_data <- data.table(poster = c('Cassey Lottman', 
+                                     'Cassey Lottman', 
+                                     'Trevor Poppen',
+                                     'Alex Bainter'), 
+                          message = c('', 
+                                      'I hate Rails', 
+                                      'Its funny',
+                                      'Points added back in 3...2...1...'),
+                          created_time = c(as.POSIXct('2014/09/01'),
+                                           as.POSIXct('2014/09/02'),
+                                           as.POSIXct('2014/09/03'),
+                                           as.POSIXct('2014/09/04')),
+                          likes = c(1,2,3,4),
+                          comments = c(2,3,4,6),
+                          score=c(3,4,5,9))
   
   time_plot <- plot_time(post_data)
   sums_plot <- plot_sums(post_data)

@@ -24,7 +24,7 @@ shinyUI(fluidPage(
                 actionButton(inputId = 'submit', label = 'Update graphs'), collapse='\n'),
       Average = ggvisOutput('average_plot'),
       Sums = ggvisOutput('sums_plot'),
-      Time = ggvisOutput('time_plot'),
+      Time = paste(ggvisOutput('time_plot'), uiOutput('time_ui')),
       Likes = dataTableOutput('like_counts'),
       Pairs = dataTableOutput('combined_likes'),
       Posts = dataTableOutput('all_posts'),

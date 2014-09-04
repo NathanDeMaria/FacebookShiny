@@ -3,7 +3,8 @@ require(ggvis)
 
 plot_time <- function(post_data) {
   # is it better like this or grouped by day?
-  time_vis <- post_data %>% ggvis(~created_time, ~score) %>% layer_points()
+  time_vis <- post_data %>% ggvis(~created_time, ~score) %>% 
+      layer_points(opacity:=.2)
   time_vis
 }
 
@@ -24,3 +25,5 @@ plot_sums <- function(post_data) {
     add_axis('y', title='Sentiment') %>%
     scale_numeric("y", domain = c(min(person_sum$score) - 1, max(person_sum$score)))
 }
+
+

@@ -25,6 +25,7 @@ shinyUI(fluidPage(
       Average = ggvisOutput('average_plot'),
       Sums = ggvisOutput('sums_plot'),
       Time = paste(ggvisOutput('time_plot'), uiOutput('time_ui')),
+      Frequency = paste(ggvisOutput('time_freq_plot'), uiOutput('time_freq_ui')),
       Likes = dataTableOutput('like_counts'),
       Pairs = dataTableOutput('combined_likes'),
       Posts = dataTableOutput('all_posts'),

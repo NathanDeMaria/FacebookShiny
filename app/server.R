@@ -26,6 +26,13 @@ shinyServer(function(input, output, session) {
                         stroke := 'blue') %>% 
           bind_shiny('time_plot', 'time_ui')
         
+        post_data %>% plot_time_hist() %>% 
+          layer_histograms(binwidth = input_slider(.5, 24*7, 
+                                                   value=24,
+                                                   label='Bin width (hours)',
+                                                   map=function(x) {60*60*x})) %>%
+          bind_shiny('time_freq_plot', 'time_freq_ui')
+        
         output$all_posts <- renderDataTable(post_data)
         
         setProgress(message = 'Parsing likes', value = input$pages_back + 2)

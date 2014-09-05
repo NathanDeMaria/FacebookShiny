@@ -26,4 +26,8 @@ plot_sums <- function(post_data) {
     scale_numeric("y", domain = c(min(person_sum$score) - 1, max(person_sum$score)))
 }
 
+plot_time_hist <- function(post_data) {
+  post_data %>% ggvis(~created_time)
+}
+
 

@@ -13,7 +13,7 @@ shinyServer(function(input, output, session) {
     }
     
     isolate({
-      withProgress(session, min = 0, max = input$pages_back + 3, {
+      withProgress(session, min = 0, max = input$pages_back + 4, {
         setProgress(message = 'Reading pages', value = 0)
         post_list <- get_json(token = input$token, pages_back = input$pages_back, group_id = input$group, update = T)
         
@@ -37,6 +37,8 @@ shinyServer(function(input, output, session) {
         output$combined_likes <- renderDataTable(combined_likes)
         
         output$network_d3 <- renderText(create_d3(copy(combined_likes)))
+        
+        setProgress(message = 'Creating network graph', value = input$pages_back + 3)
         
         output$network_plot <- renderPlot({
           adjacency_matrix <- get_adj_matrix(like_counts)

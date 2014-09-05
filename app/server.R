@@ -54,7 +54,7 @@ shinyServer(function(input, output, session) {
           plot(g)
         })
         
-        print('done')
+        updateTabsetPanel(session, 'tabs', selected='Average')        
       })
 
     })

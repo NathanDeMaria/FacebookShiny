@@ -13,8 +13,8 @@ shinyUI(fluidPage(
   ggvisOutput('dummy'),
   dataTableOutput('dummer'),
   
-  bootstrap_tabs(list(
-      Submit = paste0(
+  tabsetPanel(id = 'tabs',
+      tabPanel('Submit',
                 tags$h4('Get an API key', tags$a('here', href='https://developers.facebook.com/tools/explorer/?method=GET&path=me%3Ffields%3Did%2Cname&version=v2.0')),
                 tags$p('Make sure you check user_groups'),
                 textInput('token', label = 'API Token', value = app_settings['api_token','values',with=F][[1]]),         
@@ -22,14 +22,14 @@ shinyUI(fluidPage(
                 numericInput(inputId = 'pages_back', label = 'Pages back', value = 4, min = 0, max = 100),
                 tags$br(),
                 actionButton(inputId = 'submit', label = 'Update graphs'), collapse='\n'),
-      Average = ggvisOutput('average_plot'),
-      Sums = ggvisOutput('sums_plot'),
-      Time = paste(ggvisOutput('time_plot'), uiOutput('time_ui')),
-      Frequency = paste(ggvisOutput('time_freq_plot'), uiOutput('time_freq_ui')),
-      Likes = dataTableOutput('like_counts'),
-      Pairs = dataTableOutput('combined_likes'),
-      Posts = dataTableOutput('all_posts'),
-      D3Network = paste0(tags$div(id='container'), htmlOutput('network_d3')),
-      Network = plotOutput('network_plot', width = 1000, height = 1000)
-    ))
+      tabPanel('Average', ggvisOutput('average_plot')),
+      tabPanel('Sums', ggvisOutput('sums_plot')),
+      tabPanel('Time', ggvisOutput('time_plot'), uiOutput('time_ui')),
+      tabPanel('Frequency', ggvisOutput('time_freq_plot'), uiOutput('time_freq_ui')),
+      tabPanel('Likes', dataTableOutput('like_counts')),
+      tabPanel('Pairs', dataTableOutput('combined_likes')),
+      tabPanel('Posts', dataTableOutput('all_posts')),
+      tabPanel('D3Network', tags$div(id='container'), htmlOutput('network_d3')),
+      tabPanel('Network', plotOutput('network_plot', width = 1000, height = 1000))
+    )
 ))

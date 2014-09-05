@@ -33,6 +33,10 @@ shinyServer(function(input, output, session) {
                                                    map=function(x) {60*60*x})) %>%
           bind_shiny('time_freq_plot', 'time_freq_ui')
         
+        # cleaning weird things, like Tracy's Vinod quotes
+        post_data[,message:=gsub('\031', '', message)]
+        post_data[,message:=gsub('\034', '', message)]
+        post_data[,message:=gsub('\035', '', message)]
         output$all_posts <- renderDataTable(post_data)
         
         setProgress(message = 'Parsing likes', value = input$pages_back + 2)

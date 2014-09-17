@@ -7,12 +7,7 @@ shinyUI(fluidPage(
   progressInit(),
   
   titlePanel("Facebook Shiny App"),
-  
-  # including a 'dummy' output so it adds 
-  # the ggvis and dataTable style/scripts to head
-  ggvisOutput('dummy'),
-  dataTableOutput('dummer'),
-  
+
   tabsetPanel(id = 'tabs',
       tabPanel('Submit',
                 tags$h4('Get an API key', tags$a('here', href='https://developers.facebook.com/tools/explorer/?method=GET&path=me%3Ffields%3Did%2Cname&version=v2.0')),

@@ -7,6 +7,7 @@ library(lubridate)
 library(stringr)
 library(ggvis)
 library(data.table)
+library(httr)
 
 setwd('R/')
 source('parsing.R')
@@ -15,6 +16,7 @@ source('scoring.R')
 source('visualize.R')
 source('likes.R')
 source('appSettings.R')
+source('reshaping_tables.R')
 
 
 # getting data ####
@@ -27,6 +29,7 @@ like_counts <- likes[,list(count=length(post_id)),by=list(poster, liker)][order(
 
 # so there's only one link in a pair
 combined_likes <- combine_likes(like_counts)
-
+likes_by_person <- get_lbp(post_data)
+ike_counts[,like_rate:=count/likes_by_person[poster]$Posts]
 like_json <- d3_force_likes(combined_likes)
 

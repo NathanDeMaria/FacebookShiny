@@ -33,10 +33,6 @@ shinyServer(function(input, output, session) {
                                                    map=function(x) {60*60*x})) %>%
           bind_shiny('time_freq_plot', 'time_freq_ui')
         
-        # cleaning weird things, like Tracy's Vinod quotes
-        post_data[,message:=gsub('\031', '', message)]
-        post_data[,message:=gsub('\034', '', message)]
-        post_data[,message:=gsub('\035', '', message)]
         output$all_posts <- renderDataTable(post_data)
         
         setProgress(message = 'Parsing likes', value = input$pages_back + 2)
@@ -51,12 +47,8 @@ shinyServer(function(input, output, session) {
         
         setProgress(message = 'Creating network graph', value = input$pages_back + 3)
         
-        output$network_plot <- renderPlot({
-          adjacency_matrix <- get_adj_matrix(like_counts)
-          
-          g <- graph.adjacency(adjacency_matrix, weighted = T)
-          plot(g)
-        })
+        output$network_plot <- renderPlot(          
+          plot(plot_likes_network(like_counts)))
         
         updateTabsetPanel(session, 'tabs', selected='Average')        
       })

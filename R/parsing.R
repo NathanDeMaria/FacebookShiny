@@ -6,6 +6,12 @@ posts_to_dt <- function(post_json_list) {
   
   post_data[,score:=score_text(message)]
   post_data[,created_time:=ymd_hms(created_time)]
+    
+  # cleaning weird things, like Tracy's Vinod quotes
+  post_data[,message:=gsub('\031', '', message)]
+  post_data[,message:=gsub('\034', '', message)]
+  post_data[,message:=gsub('\035', '', message)]
+  
   post_data
 }
 

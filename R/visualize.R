@@ -30,4 +30,10 @@ plot_time_hist <- function(post_data) {
   post_data %>% ggvis(~created_time)
 }
 
+plot_likes_network <- function(like_counts) {
+  
+  adjacency_matrix <- get_adj_matrix(like_counts)
+  graph.adjacency(adjacency_matrix, weighted = T)
+}
+
 

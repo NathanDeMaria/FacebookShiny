@@ -30,6 +30,9 @@ like_counts <- likes[,list(count=length(post_id)),by=list(poster, liker)][order(
 # so there's only one link in a pair
 likes_by_person <- get_lbp(post_data)
 like_counts[,like_rate:=count/likes_by_person[poster]$Posts]
+
+likes_by_person <- get_lbp(post_data)
+like_counts[,like_rate:=count/likes_by_person[poster]$Posts]
 combined_likes <- combine_likes(like_counts)
 like_json <- d3_force_likes(combined_likes)
 

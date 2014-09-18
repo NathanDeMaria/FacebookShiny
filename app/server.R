@@ -50,7 +50,7 @@ shinyServer(function(input, output, session) {
         output$network_plot <- renderPlot(          
           plot(plot_likes_network(like_counts)))
         
-        updateTabsetPanel(session, 'tabs', selected='Average')        
+        updateTabsetPanel(session, 'tabs', selected='Sentiment')        
       })
 
     })

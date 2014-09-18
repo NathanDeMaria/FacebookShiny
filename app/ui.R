@@ -17,14 +17,17 @@ shinyUI(fluidPage(
                 numericInput(inputId = 'pages_back', label = 'Pages back', value = 4, min = 0, max = 100),
                 tags$br(),
                 actionButton(inputId = 'submit', label = 'Update graphs'), collapse='\n'),
-      tabPanel('Average', ggvisOutput('average_plot')),
-      tabPanel('Sums', ggvisOutput('sums_plot')),
+      tabPanel('Sentiment', tabsetPanel(id = 'sentiment_tabs', 
+                                        tabPanel('Average', ggvisOutput('average_plot')),
+                                        tabPanel('Sums', ggvisOutput('sums_plot')))),          
       tabPanel('Time', ggvisOutput('time_plot'), uiOutput('time_ui')),
       tabPanel('Frequency', ggvisOutput('time_freq_plot'), uiOutput('time_freq_ui')),
-      tabPanel('Likes', dataTableOutput('like_counts')),
-      tabPanel('Pairs', dataTableOutput('combined_likes')),
+      tabPanel('Likes', tabsetPanel(id = 'like_tabs',
+                                    tabPanel('Counts', dataTableOutput('like_counts')),
+                                    tabPanel('Pairs', dataTableOutput('combined_likes')))),
       tabPanel('Posts', dataTableOutput('all_posts')),
-      tabPanel('D3Network', tags$div(id='container'), htmlOutput('network_d3')),
-      tabPanel('Network', plotOutput('network_plot', width = 1000, height = 1000))
+      tabPanel('Network', tabsetPanel(id = 'network_tabs',
+                                      tabPanel('D3Network', tags$div(id='container'), htmlOutput('network_d3')),
+                                      tabPanel('Network', plotOutput('network_plot', width = 1000, height = 1000))))
     )
 ))

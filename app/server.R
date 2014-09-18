@@ -38,10 +38,15 @@ shinyServer(function(input, output, session) {
         setProgress(message = 'Parsing likes', value = input$pages_back + 2)
         likes <- likes_to_dt(post_list)
         like_counts <- likes[,list(count=length(post_id)),by=list(poster, liker)][order(count, decreasing = T)]
+        
+        likes_by_person <- get_lbp(post_data)
+        like_counts[,like_rate:=count/likes_by_person[poster]$Posts]
         combined_likes <- combine_likes(like_counts)
         
         output$like_counts <- renderDataTable(like_counts)
         output$combined_likes <- renderDataTable(combined_likes)
+                
+        output$likes_by_person <- renderDataTable(likes_by_person)
         
         output$network_d3 <- renderText(create_d3(copy(combined_likes)))
         

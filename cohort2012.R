@@ -9,7 +9,7 @@ library(ggvis)
 library(data.table)
 library(httr)
 
-setwd('R/')
+setwd('app/R/')
 source('parsing.R')
 source('data_gathering.R')
 source('scoring.R')

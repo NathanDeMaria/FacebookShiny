@@ -9,14 +9,14 @@ library(ggvis)
 library(data.table)
 library(httr)
 
-setwd('app/R/')
-source('parsing.R')
-source('data_gathering.R')
-source('scoring.R')
-source('visualize.R')
-source('likes.R')
-source('appSettings.R')
-source('reshaping_tables.R')
+setwd('app/')
+source('R/parsing.R')
+source('R/data_gathering.R')
+source('R/scoring.R')
+source('R/visualize.R')
+source('R/likes.R')
+source('R/appSettings.R')
+source('R/reshaping_tables.R')
 
 
 # getting data ####

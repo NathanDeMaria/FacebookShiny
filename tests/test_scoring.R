@@ -1,5 +1,5 @@
-
-source('../R/scoring.R')
+setwd('../app')
+source('R/scoring.R')
 
 context('Scoring')
 

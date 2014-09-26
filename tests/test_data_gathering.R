@@ -1,6 +1,5 @@
-
-source('../R/data_gathering.R')
-
+setwd('../app')
+source('R/data_gathering.R')
 context('JSON Cleaning')
 
 test_that('Shrug test', {

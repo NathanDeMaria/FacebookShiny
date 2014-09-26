@@ -1,5 +1,5 @@
-
-source('../R/likes.R')
+setwd('../app')
+source('R/likes.R')
 
 context('Adjacency matrix')
 

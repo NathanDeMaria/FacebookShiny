@@ -1,5 +1,5 @@
-
-source('../R/visualize.R')
+setwd('../app')
+source('R/visualize.R')
 
 context('Visualization')
 

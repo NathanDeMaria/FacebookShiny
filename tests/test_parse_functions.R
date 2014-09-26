@@ -1,5 +1,5 @@
-
-source('../R/parsing.R')
+setwd('../app')
+source('R/parsing.R')
 
 # Parse Comment test ####
 context('Parse comment')
